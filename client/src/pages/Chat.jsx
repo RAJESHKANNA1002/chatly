@@ -28,7 +28,7 @@ useEffect(() => {
 
   const loadConversations = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/chat/conversations', {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/chat/conversations`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setConversations(res.data);
@@ -37,7 +37,7 @@ useEffect(() => {
 
   const loadConversation = async (id) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/chat/conversations/${id}`, {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/chat/conversations/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMessages(res.data.messages);
@@ -54,7 +54,7 @@ useEffect(() => {
     setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
 
     try {
-      const response = await fetch('http://localhost:5000/api/chat/send', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/chat/send`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ message: userMessage, conversationId: currentConvId, provider })
