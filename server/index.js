@@ -11,10 +11,19 @@ const chatRoutes = require('./routes/chat');
 const app = express();
 
 app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'https://chatly-pied.vercel.app'
-  ],
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      'http://localhost:3000',
+      'https://chatly-pied.vercel.app',
+      'https://chatly-mnjnd0zt2-rajesh-kannas-projects-f21ae25e.vercel.app'
+    ];
+    // Allow any vercel preview URL for your app
+    if (!origin || allowedOrigins.includes(origin) || origin.includes('chatly') && origin.includes('vercel.app')) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
 app.use(express.json({ limit: '50mb' }));
