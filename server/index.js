@@ -10,7 +10,13 @@ const chatRoutes = require('./routes/chat');
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'https://chatly.vercel.app'  // ← replace with your actual Vercel URL after deploying
+  ],
+  credentials: true
+}));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
