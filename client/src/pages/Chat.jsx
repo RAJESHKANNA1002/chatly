@@ -38,7 +38,7 @@ useEffect(() => {
 
   const loadConversation = async (id) => {
     try {
-      const res = await axios.get(`$${API_URL}/api/chat/conversations/${id}`, {
+      const res = await axios.get(`${API_URL}/api/chat/conversations/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMessages(res.data.messages);

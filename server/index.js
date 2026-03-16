@@ -13,7 +13,7 @@ const app = express();
 app.use(cors({
   origin: [
     'http://localhost:3000',
-    'https://chatly.vercel.https://chatly-p7fbxfder-rajesh-kannas-projects-f21ae25e.vercel.app/'  // ← replace with your actual Vercel URL after deploying  // ← replace with your actual Vercel URL after deploying
+    'https://chatly-pied.vercel.app'
   ],
   credentials: true
 }));
