@@ -16,10 +16,11 @@ const Chat = () => {
   const token = localStorage.getItem('token');
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
-  useEffect(() => {
-    if (!token) navigate('/');
-    loadConversations();
-  }, []);
+useEffect(() => {
+  if (!token) navigate('/');
+  loadConversations();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -75,14 +76,16 @@ const Chat = () => {
             try {
               const parsed = JSON.parse(data);
               if (parsed.conversationId) { setCurrentConvId(parsed.conversationId); loadConversations(); }
-            } catch {
-              aiResponse += data;
-              setMessages(prev => {
-                const updated = [...prev];
-                updated[updated.length - 1].content = aiResponse;
-                return updated;
-              });
-            }
+          } catch {
+  // eslint-disable-next-line no-loop-func
+  const currentResponse = aiResponse + data;
+  aiResponse = currentResponse;
+  setMessages(prev => {
+    const updated = [...prev];
+    updated[updated.length - 1].content = currentResponse;
+    return updated;
+  });
+}
           }
         }
       }
