@@ -5,7 +5,7 @@ import API_URL from '../config';
 
 const Login = () => {
   const [isRegister, setIsRegister] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', password: '', telegramId: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -330,18 +330,42 @@ const Login = () => {
 
           <form onSubmit={handleSubmit}>
             {isRegister && (
-              <div className="form-group">
-                <label className="form-label">Full Name</label>
-                <input
-                  className="form-input"
-                  type="text"
-                  placeholder="John Doe"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  required
-                />
-              </div>
-            )}
+  <div className="form-group">
+
+    {/* FULL NAME FIELD */}
+    <div className="form-group">
+      <label className="form-label">Full Name</label>
+      <input
+        className="form-input"
+        type="text"
+        placeholder="John Doe"
+        value={formData.name}
+        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+        required
+      />
+    </div>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <label className="form-label">Telegram Chat ID</label>
+      <a 
+        href="https://t.me/userinfobot" 
+        target="_blank" 
+        rel="noreferrer" 
+        style={{ fontSize: '10px', color: '#a78bfa', textDecoration: 'none', marginBottom: '8px' }}
+      >
+        Find ID @userinfobot
+      </a>
+    </div>
+    
+    <input
+      className="form-input"
+      type="text"
+      placeholder="e.g. 123456789"
+      value={formData.telegramId}
+      onChange={(e) => setFormData({ ...formData, telegramId: e.target.value })}
+      required={isRegister} // Only required during signup
+    />
+  </div>
+)}
             <div className="form-group">
               <label className="form-label">Email</label>
               <input
