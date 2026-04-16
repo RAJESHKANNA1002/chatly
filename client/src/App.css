@@ -36,3 +36,31 @@
     transform: rotate(360deg);
   }
 }
+
+/* Mobile-Specific Styles (Phones & Tablets) */
+@media screen and (max-width: 768px) {
+  .chat-container {
+    width: 100vw !important;
+    height: 100vh !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Adjust message bubble width for small screens */
+  .message {
+    max-width: 85% !important;
+    font-size: 14px !important;
+  }
+
+  /* Fix the input area at the bottom */
+  .input-area {
+    padding: 10px !important;
+    background-color: #fff;
+    position: sticky;
+    bottom: 0;
+  }
+
+  .input-area input {
+    font-size: 16px !important; /* Prevents auto-zoom on iPhones */
+  }
+}

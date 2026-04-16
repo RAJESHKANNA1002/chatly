@@ -209,6 +209,30 @@ const Chat = () => {
         .send-btn { background: #6c63ff; border: none; color: #fff; padding: 8px 16px; border-radius: 10px; cursor: pointer; font-weight: 600; }
         
         pre { border-radius: 8px !important; margin: 15px 0 !important; font-size: 13px !important; }
+      @media (max-width: 768px) {
+  /* Make sure the toggle button is always visible on top of everything */
+  .menu-toggle-btn {
+    position: relative;
+    z-index: 1001;
+  }
+
+  /* Slide the sidebar over the content instead of pushing it */
+  .sidebar {
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .sidebar.closed {
+    transform: translateX(-100%);
+    width: 280px; /* Keep the width so it slides properly */
+    display: block; /* Don't hide it, just move it off-screen */
+  }
+}
       `}</style>
 
       {/* Sidebar Section */}
@@ -247,7 +271,7 @@ const Chat = () => {
         <div style={{ padding: '20px', borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', gap: '12px' }}>
           <div style={{ width: '35px', height: '35px', background: '#6c63ff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>{getInitials(user.name)}</div>
           <div style={{ fontSize: '13px', flex: 1 }}>{user.name}</div>
-          <button onClick={logout} style={{ fontSize: '11px', opacity: 0.5, background: 'none', border: 'none', color: '#fff', cursor: 'pointer' }}>Logout</button>
+          <button onClick={logout} style={{ fontSize: '11px', opacity: 0.5, background: 'none', border: 'none', color: '#f5f1f3', cursor: 'pointer' }}>Logout</button>
         </div>
       </div>
 
@@ -255,7 +279,25 @@ const Chat = () => {
       <div className="main">
         <header className="main-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-            <button style={{ background: 'none', border: 'none', color: '#fff', fontSize: '20px', cursor: 'pointer' }} onClick={() => setSidebarOpen(!sidebarOpen)}>☰</button>
+            <button   
+  className="menu-toggle-btn" 
+  onClick={() => setSidebarOpen(!sidebarOpen)}
+  style={{ 
+    background: 'none', 
+    border: 'none', 
+    color: '#fff', 
+    fontSize: '24px', 
+    cursor: 'pointer',
+    width: '40px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: '0.3s' // Makes the change feel smooth
+  }}
+>
+  {/* If sidebar is open, show X. If closed, show Burger */}
+  {sidebarOpen ? '✕' : '☰'}
+</button>
             <span style={{ fontSize: '14px', fontWeight: '600', fontFamily: 'Syne' }}>{currentConvId ? 'Active Session' : 'New Interaction'}</span>
           </div>
           <div style={{ display: 'flex', gap: '12px' }}>
